@@ -123,7 +123,4 @@ public class SudokuGUI extends FrameBase {
         setContentPane(panelPrincipal);
     }
 
-    public static void main(String[] args) {
-        new SudokuGUI().setVisible(true);
-    }
 }

@@ -10,5 +10,8 @@ package abstractlab;
  */
 public class AbstractLab {
 
-    
+    public static void main(String[] args) {
+        new SudokuGUI().setVisible(true);
+    }
+
 }
