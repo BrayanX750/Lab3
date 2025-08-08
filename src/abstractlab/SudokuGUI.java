@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class SudokuGUI extends FrameBase {
 
@@ -19,12 +21,16 @@ public class SudokuGUI extends FrameBase {
         initComponents();
     }
 
-    public int tablero[][];
+    public int tablero[][] = new int[9][9];
     public JTextField espacios[][] = new JTextField[9][9];
     public int indexTablero = 0;
 
+    Random random = new Random();
+
     @Override
     protected void initComponents() {
+        Logica logica = new Logica();
+
         //panel principal
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
@@ -63,6 +69,12 @@ public class SudokuGUI extends FrameBase {
                 numero.setBackground(colorAlterno ? Color.decode("#CCFFFF") : Color.WHITE);
                 numero.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
+                if (tablero[fila][columna] != 0) {
+                    numero.setText(String.valueOf(tablero[fila][columna]));
+                    numero.setFont(new Font("Segoe UI", Font.BOLD, 18));
+                    numero.setEditable(false);
+                }
+
                 espacios[fila][columna] = numero;
                 panelTablero.add(numero);
             }
@@ -72,9 +84,39 @@ public class SudokuGUI extends FrameBase {
         JButton btnVerificar = new JButton("Verificar solución");
         panelSur.add(btnVerificar);
 
+        btnVerificar.addActionListener(e -> {
+            if (logica.solucionValida(espacios)) {
+                JOptionPane.showMessageDialog(this, "Felicidades! completaste el sudoku correctamente!");
+                int opcion = random.nextInt(3);
+
+                if (opcion == 0) {
+                    logica.generarTablero(espacios, "facil");
+                } else if (opcion == 1) {
+                    logica.generarTablero(espacios, "medio");
+                } else {
+                    logica.generarTablero(espacios, "dificil");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Esta solución no es la correcta, intenta de nuevo.");
+            }
+        });
+
         //botón nueva partida
         JButton btnNuevaPartida = new JButton("Nueva partida");
         panelSur.add(btnNuevaPartida);
+
+        btnNuevaPartida.addActionListener(e -> {
+            int opcion = random.nextInt(3);
+
+            if (opcion == 0) {
+                logica.generarTablero(espacios, "facil");
+            } else if (opcion == 1) {
+                logica.generarTablero(espacios, "medio");
+            } else {
+                logica.generarTablero(espacios, "dificil");
+            }
+        });
 
         //botón salir
         JButton btnSalir = new JButton("Salir");
@@ -84,6 +126,8 @@ public class SudokuGUI extends FrameBase {
             System.exit(0);
         });
 
+        //generar primer tablero
+        logica.generarTablero(espacios, "dificil");
         setContentPane(panelPrincipal);
     }
 

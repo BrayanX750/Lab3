@@ -87,6 +87,7 @@ public class Logica extends SudokuBase {
             }
         }
     }
+   
 }
     
     @Override
