@@ -9,6 +9,86 @@ import javax.swing.JTextField;
 
 public class Logica extends SudokuBase {
 
+   
+    @Override
+    public void generarTablero(JTextField[][] casillas, String dificultad) {
+    int[][][] faciles = {  
+        {
+            {0, 0, 0, 6, 0, 2, 5, 7, 0},
+            {2, 7, 0, 4, 5, 9, 6, 0, 0},
+            {1, 8, 0, 0, 2, 0, 0, 6, 0},
+            {0, 0, 0, 0, 0, 0, 4, 2, 0},
+            {4, 0, 0, 2, 0, 3, 0, 0, 0},
+            {0, 2, 0, 4, 0, 0, 8, 3, 6},
+            {7, 8, 0, 6, 0, 5, 0, 0, 0},
+            {3, 0, 6, 0, 0, 0, 0, 0, 2},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0}
+        },
+        {
+            {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        }
+    };
+
+    int[][][] medios = {
+        {
+            {0, 2, 0, 6, 0, 8, 0, 0, 0},
+            {5, 8, 0, 0, 0, 9, 7, 0, 0},
+            {0, 0, 0, 0, 4, 0, 0, 0, 0},
+            {3, 7, 0, 0, 0, 0, 5, 0, 0},
+            {6, 0, 0, 0, 0, 0, 0, 0, 4},
+            {0, 0, 8, 0, 0, 0, 0, 1, 3},
+            {0, 0, 0, 0, 2, 0, 0, 0, 0},
+            {0, 0, 9, 8, 0, 0, 0, 3, 6},
+            {0, 0, 0, 3, 0, 6, 0, 9, 0}
+        }
+    };
+
+    int[][][] dificiles = {
+        {
+            {0, 0, 0, 0, 0, 0, 0, 1, 2},
+            {0, 0, 0, 0, 0, 3, 0, 0, 0},
+            {0, 0, 1, 0, 0, 0, 4, 0, 0},
+            {0, 0, 0, 0, 5, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0, 2, 0, 0, 0},
+            {0, 0, 0, 0, 3, 0, 0, 0, 0},
+            {0, 0, 9, 0, 0, 0, 7, 0, 0},
+            {0, 0, 0, 6, 0, 0, 0, 0, 0},
+            {8, 6, 0, 0, 0, 0, 0, 0, 0}
+        }
+    };
+
+    int[][][] seleccion;
+
+    if (dificultad.equalsIgnoreCase("facil")) {
+        seleccion = faciles;
+    } else if (dificultad.equalsIgnoreCase("medio")) {
+        seleccion = medios;
+    } else {
+        seleccion = dificiles;
+    }
+
+    int index = (int) (Math.random() * seleccion.length);
+    int[][] tablero = seleccion[index];
+
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (tablero[i][j] != 0) {
+                casillas[i][j].setText(String.valueOf(tablero[i][j]));
+            } else {
+                casillas[i][j].setText("");
+            }
+        }
+    }
+}
+    
     @Override
     public boolean solucionValida(JTextField casillas[][]) {
         int[][] tablero = new int[9][9];
@@ -84,9 +164,8 @@ public class Logica extends SudokuBase {
         return true;
     }
 
-    @Override
-    public void generarTablero() {
-    }
+    
+    
 
     public void escaneoSimple(JTextField[][] casillas) {
         int[][] tablero = new int[9][9];
