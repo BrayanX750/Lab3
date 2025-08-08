@@ -21,9 +21,7 @@ public class SudokuGUI extends FrameBase {
         initComponents();
     }
 
-    public int tablero[][] = new int[9][9];  
     public JTextField espacios[][] = new JTextField[9][9];
-    public int indexTablero = 0;
 
     Random random = new Random();
 
@@ -68,12 +66,6 @@ public class SudokuGUI extends FrameBase {
                 boolean colorAlterno = ((fila / 3) + (columna / 3)) % 2 == 0;
                 numero.setBackground(colorAlterno ? Color.decode("#CCFFFF") : Color.WHITE);
                 numero.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-
-                if (tablero[fila][columna] != 0) {
-                    numero.setText(String.valueOf(tablero[fila][columna]));
-                    numero.setFont(new Font("Segoe UI", Font.BOLD, 18));
-                    numero.setEditable(false);
-                }
 
                 espacios[fila][columna] = numero;
                 panelTablero.add(numero);
