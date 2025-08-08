@@ -21,7 +21,7 @@ public class SudokuGUI extends FrameBase {
         initComponents();
     }
 
-    public int tablero[][] = new int[9][9];
+    public int tablero[][] = new int[9][9];  
     public JTextField espacios[][] = new JTextField[9][9];
     public int indexTablero = 0;
 

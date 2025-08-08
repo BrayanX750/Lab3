@@ -13,29 +13,29 @@ public class Logica extends SudokuBase {
     @Override
     public void generarTablero(JTextField[][] casillas, String dificultad) {
     int[][][] faciles = {  
+         {
+        {0, 2, 0, 6, 0, 8, 0, 0, 0},
+        {5, 8, 0, 0, 0, 9, 7, 0, 0},
+        {0, 0, 0, 0, 4, 0, 0, 0, 0},
+        {3, 7, 0, 0, 0, 0, 5, 0, 0},
+        {6, 0, 0, 0, 0, 0, 0, 0, 4},
+        {0, 0, 8, 0, 0, 0, 0, 1, 3},
+        {0, 0, 0, 0, 2, 0, 0, 0, 0},
+        {0, 0, 9, 8, 0, 0, 0, 3, 6},
+        {0, 0, 0, 3, 0, 6, 0, 9, 0}
+    },
         {
-            {0, 0, 0, 6, 0, 2, 5, 7, 0},
-            {2, 7, 0, 4, 5, 9, 6, 0, 0},
-            {1, 8, 0, 0, 2, 0, 0, 6, 0},
-            {0, 0, 0, 0, 0, 0, 4, 2, 0},
-            {4, 0, 0, 2, 0, 3, 0, 0, 0},
-            {0, 2, 0, 4, 0, 0, 8, 3, 6},
-            {7, 8, 0, 6, 0, 5, 0, 0, 0},
-            {3, 0, 6, 0, 0, 0, 0, 0, 2},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0}
-        },
-        {
-            {5, 3, 0, 0, 7, 0, 0, 0, 0},
-            {6, 0, 0, 1, 9, 5, 0, 0, 0},
-            {0, 9, 8, 0, 0, 0, 0, 6, 0},
-            {8, 0, 0, 0, 6, 0, 0, 0, 3},
-            {4, 0, 0, 8, 0, 3, 0, 0, 1},
-            {7, 0, 0, 0, 2, 0, 0, 0, 6},
-            {0, 6, 0, 0, 0, 0, 2, 8, 0},
-            {0, 0, 0, 4, 1, 9, 0, 0, 5},
-            {0, 0, 0, 0, 8, 0, 0, 7, 9}
-        }
-    };
+        {5, 3, 0, 0, 7, 0, 0, 0, 0},
+        {6, 0, 0, 1, 9, 5, 0, 0, 0},
+        {0, 9, 8, 0, 0, 0, 0, 6, 0},
+        {8, 0, 0, 0, 6, 0, 0, 0, 3},
+        {4, 0, 0, 8, 0, 3, 0, 0, 1},
+        {7, 0, 0, 0, 2, 0, 0, 0, 6},
+        {0, 6, 0, 0, 0, 0, 2, 8, 0},
+        {0, 0, 0, 4, 1, 9, 0, 0, 5},
+        {0, 0, 0, 0, 8, 0, 0, 7, 9}
+    }
+};
 
     int[][][] medios = {
         {
@@ -91,32 +91,33 @@ public class Logica extends SudokuBase {
 }
     
     @Override
-    public boolean solucionValida(JTextField casillas[][]) {
-        int[][] tablero = new int[9][9];
+public boolean solucionValida(JTextField casillas[][]) {
+    int[][] tablero = new int[9][9];
 
-        for (int fila = 0; fila < 9; fila++) {
-            for (int col = 0; col < 9; col++) {
-                try {
-                    String texto = casillas[fila][col].getText();
-                    if (!texto.isEmpty()) {
-                        tablero[fila][col] = Integer.parseInt(texto);
-                    } else {
-                        tablero[fila][col] = 0;
-                    }
-                } catch (NumberFormatException e) {
-                    return false;
+    for (int fila = 0; fila < 9; fila++) {
+        for (int col = 0; col < 9; col++) {
+            try {
+                String texto = casillas[fila][col].getText();
+                if (!texto.isEmpty()) {
+                    tablero[fila][col] = Integer.parseInt(texto);
+                } else {
+                    return false; // Si hay casillas vacías, no es solución válida
                 }
+            } catch (NumberFormatException e) {
+                return false;
             }
         }
-
-        for (int i = 0; i < 9; i++) {
-            if (!filaValida(tablero, i, true)) return false;
-            if (!columnaValida(tablero, i, true)) return false;
-            if (!cajaValida(tablero, i)) return false;
-        }
-
-        return true;
     }
+
+    for (int i = 0; i < 9; i++) {
+        if (!filaValida(tablero, i, true)) return false;
+        if (!columnaValida(tablero, i, true)) return false;
+        if (!cajaValida(tablero, i)) return false;
+    }
+
+    return true;
+}
+
 
     @Override
     public boolean filaValida(int[][] tablero, int indexF, boolean fila) {
