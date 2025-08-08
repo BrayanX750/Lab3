@@ -7,5 +7,9 @@ public abstract class SudokuBase {
     public abstract boolean cajaValida(int tablero [][], int caja);
     public abstract boolean columnaValida(int tablero [][], int indexC, boolean columna);
     public abstract boolean filaValida(int tablero [][], int indexF, boolean fila);
-    public abstract void generarTablero();
+   
+public abstract void generarTablero(JTextField[][] casillas, String dificultad);
+
+
+
 }
