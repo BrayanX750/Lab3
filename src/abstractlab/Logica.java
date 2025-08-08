@@ -100,7 +100,7 @@ public class Logica extends SudokuBase {
                     if (!texto.isEmpty()) {
                         tablero[fila][col] = Integer.parseInt(texto);
                     } else {
-                        return false; // Si hay casillas vacías, no es solución válida
+                        return false; 
                     }
                 } catch (NumberFormatException e) {
                     return false;
